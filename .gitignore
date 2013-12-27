@@ -1,1 +1,4 @@
 Icon.png
+vendor
+composer.lock
+.DS_Store
