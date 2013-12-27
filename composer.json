@@ -1,0 +1,29 @@
+{
+	"name": "jedenweb/user-panel",
+	"type": "library",
+	"description": "User panel for Nette Framework",
+	"keywords": ["nette", "user", "panel", "debugger"],
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Pavel Jurásek"
+		},
+		{
+			"name": "Mikuláš Dítě"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/JedenWeb/UserPanel/issues"
+	},
+	"require": {
+		"nette/nette": "*"
+	},
+	"require-dev": {
+		"nette/nette": "@dev"
+	},
+	"autoload": {
+		"psr-0": {
+			"JedenWeb\\UserPanel\\": "src/"
+		}
+	}
+}
