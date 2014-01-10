@@ -46,7 +46,9 @@ class UserPanel extends Nette\Application\UI\Control implements Nette\Diagnostic
 	 */
 	public function register(\Nette\Application\Application $application, \Nette\Application\IPresenter $presenter)
 	{
-		$presenter->addComponent($this, '_userPanel');
+		if (!$this->parent) {
+			$presenter->addComponent($this, '_userPanel');
+		}
 	}
 	
 	
