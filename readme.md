@@ -1,7 +1,5 @@
 # User Panel
 
-**Waiting for merge PR [1320](https://github.com/nette/nette/pull/1320).**
-
 Simple user panel for [Nette Framework](http://nette.org/)
 
 ## Instalation

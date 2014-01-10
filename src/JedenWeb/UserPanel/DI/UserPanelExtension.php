@@ -48,7 +48,7 @@ class UserPanelExtension extends Nette\DI\CompilerExtension
 			}
 			
 			$container->getDefinition('application')
-				->addSetup('?->onCreatePresenter[] = ?', array('@self', array($this->prefix('@panel'), 'register')));
+				->addSetup('?->onPresenter[] = ?', array('@self', array($this->prefix('@panel'), 'register')));
 		}
 	}
 	
