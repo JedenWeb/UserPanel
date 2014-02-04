@@ -30,14 +30,8 @@ Add users to config.neon:
 userPanel:
 	column: email # column email will be used as username
 	credentials:
-		# username => role[]
+		# username => role[] or username => password
 		admin: [role1, role2]
-		"Diacritics ěščř": [role1, role3]
 		user: [role2, role3]
+		user2: password
 ```
-
-Note: Option ```column``` is currently unused, see [Todo](#todo).
-
-## Todo
-
-- Allow authentication by *username* and *password* instead of creating dummy ```Identity```

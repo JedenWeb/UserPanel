@@ -103,10 +103,10 @@ class UserPanel extends Nette\Application\UI\Control implements Nette\Diagnostic
 	/**
 	 * Add user credentials to User Panel
 	 * @param string $username
-	 * @param array $roles
+	 * @param string|array $roles
 	 * @return UserPanel Provides fluent interface
 	 */
-	public function addCredentials($username, array $roles = array())
+	public function addCredentials($username, $roles = array())
 	{
 		if ($username === self::GUEST_KEY) {
 			throw new \Nette\InvalidArgumentException("Default user '$username' cannot be redeclared.");
@@ -114,7 +114,8 @@ class UserPanel extends Nette\Application\UI\Control implements Nette\Diagnostic
 		
 		$this->credentials[\Nette\Utils\Strings::webalize($username)] = array(
 			$this->columnName => $username,
-			'roles' => $roles,
+			'roles' => is_array($roles) ? $roles : array(),
+			'password' => is_array($roles) ? NULL : $roles,
 		);
 		return $this;
 	}
@@ -133,7 +134,11 @@ class UserPanel extends Nette\Application\UI\Control implements Nette\Diagnostic
 		);
 		
 		foreach ($this->credentials as $key => $data) {
-			$list[$key] = ucfirst($data[$this->columnName]) . ' [' . implode(', ', $data['roles']) . ']';
+			if ($data['password']) {
+				$list[$key] = $data[$this->columnName] . ':' . $data['password'];
+			} else {
+				$list[$key] = ucfirst($data[$this->columnName]) . ' [' . implode(', ', $data['roles']) . ']';
+			}
 		}
 		
 		return $list;
@@ -172,9 +177,15 @@ class UserPanel extends Nette\Application\UI\Control implements Nette\Diagnostic
 			
 		} else {
 			
-			$this->user->login(new Nette\Security\Identity($username, $this->credentials[$username]['roles'], array(
-				$this->columnName => $this->credentials[$username][$this->columnName],
-			)));
+			$identity = $this->credentials[$username];
+			
+			if ($identity['password']) {
+				$this->user->login($this->credentials[$username][$this->columnName], $identity['password']);
+			} else {
+				$this->user->login(new Nette\Security\Identity($username, $this->credentials[$username]['roles'], array(
+					$this->columnName => $this->credentials[$username][$this->columnName],
+				)));
+			}
 
 		}
 
