@@ -214,7 +214,8 @@ class UserPanel extends Nette\Application\UI\Control implements Nette\Diagnostic
 	 */
 	public function getPanel()
 	{	
-		$default = $this->user->isLoggedIn() ? $this->user->getId() : self::GUEST_KEY;
+		$default = $this->user->isLoggedIn() ? $this->user->identity->{$this->columnName} : self::GUEST_KEY;
+		$default = \Nette\Utils\Strings::webalize($default);
 		
 		if (array_key_exists($default, $this['login']['user']->getItems())) {
 			$this['login']['user']->setDefaultValue($default);
